@@ -44,6 +44,8 @@ from stable_baselines3.common.vec_env import (
 
 # For custom activation fn
 from torch import nn as nn  # noqa: F401
+from .custom_models.feature_extractors import VANFeatureExtractor, SANFeatureExtractor
+from .custom_models.visual_attention_network import van_tiny, van_small, van_based, van_large
 
 # Register custom envs
 import rl_zoo3.import_envs  # noqa: F401 pytype: disable=import-error

@@ -5,7 +5,7 @@ import gym
 import cv2
 from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
 from gym import ObservationWrapper
-from models.attention_conv import SelfAttentionConv
+from .attention_conv import SelfAttentionConv
 
 class ResizeObservation(ObservationWrapper):
     r"""Downsample the image observation to a square image."""
