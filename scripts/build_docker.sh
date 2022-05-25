@@ -13,9 +13,8 @@ else
 fi
 
 docker build --build-arg PARENT_IMAGE=${PARENT} --build-arg USE_GPU=${USE_GPU} -t ${TAG}:${VERSION} . -f docker/Dockerfile
-docker tag ${TAG}:${VERSION} ${TAG}:latest
+# docker tag ${TAG}:${VERSION} ${TAG}:latest
 
 if [[ ${RELEASE} == "True" ]]; then
-  docker push ${TAG}:${VERSION}
   docker push ${TAG}:latest
 fi
