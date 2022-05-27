@@ -43,4 +43,4 @@ if [ -f "atari-roms.tar.gz" ]; then
     rm -rf ROMS
 fi
 
-screen -d -m bash -c $CMD
+screen -d -m bash -c "$CMD"
