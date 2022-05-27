@@ -28,7 +28,7 @@ CMD=""
 for ENV in $ENVS
 do
     CMD+="WANDB_API_KEY=$WANDB python train.py --algo $ALGO --env $ENV \
-					--vec-env subproc --track --wandb-project-name $ALGO-$ENV;"
+					--vec-env subproc --track --wandb-project-name ppo-$ENV;"
 done
 
 git reset --hard HEAD

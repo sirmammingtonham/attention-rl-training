@@ -5,8 +5,8 @@ import gym
 import cv2
 from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
 from gym import ObservationWrapper
-from .attention_conv import SelfAttentionConv
-from .visual_attention_network import LKA
+from .attention_conv import SelfAttentionConv as ConvSelfAttention
+from .visual_attention_network import Attention as LKAttention
 
 class ResizeObservation(ObservationWrapper):
     r"""Downsample the image observation to a square image."""
@@ -58,7 +58,7 @@ class LKAFeatureExtractor(BaseFeaturesExtractor):
 
         self.cnn = nn.Sequential(
             nn.Conv2d(n_input_channels, 32, kernel_size=8, stride=4, padding=0),
-            LKA(32),
+            LKAttention(32),
             nn.Conv2d(32, 64, kernel_size=4, stride=2, padding=0),
             nn.ReLU(),
             nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=0),
@@ -90,7 +90,7 @@ class SANFeatureExtractor(BaseFeaturesExtractor):
 
         self.cnn = nn.Sequential(
             nn.Conv2d(n_input_channels, 32, kernel_size=8, stride=4, padding=0),
-            SelfAttentionConv(32),
+            ConvSelfAttention(32),
             nn.Conv2d(32, 64, kernel_size=4, stride=2, padding=0),
             nn.ReLU(),
             nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=0),

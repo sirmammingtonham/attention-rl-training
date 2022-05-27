@@ -195,7 +195,7 @@ class VAN(nn.Module):
 
         # classification head
         self.head = nn.Linear(
-            embed_dims[3], num_classes) if num_classes > 0 else nn.Identity()
+            embed_dims[-1], num_classes) if num_classes > 0 else nn.Identity()
 
         self.apply(self._init_weights)
 
@@ -296,6 +296,12 @@ def load_model_weights(model, arch, kwargs):
     model.load_state_dict(checkpoint["state_dict"], strict=strict)
     return model
 
+@register_model
+def van_micro(**kwargs):
+    return VAN(
+        embed_dims=[32, 64, 128], mlp_ratios=[8, 8, 4],
+        norm_layer=partial(nn.LayerNorm, eps=1e-6), depths=[3, 5, 2], num_stages=3,
+        **kwargs)
 
 @register_model
 def van_tiny(pretrained=False, **kwargs):
