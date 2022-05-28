@@ -31,12 +31,10 @@ do
 					--vec-env subproc --track --wandb-project-name ppo-$ENV;"
 done
 
-git reset --hard HEAD
-sudo apt install swig screen
-pip install -r requirements.txt
-pip install atari-py timm
-
 if [ -f "atari-roms.tar.gz" ]; then
+    sudo apt install swig screen
+    pip install -r requirements.txt
+    pip install atari-py timm
     tar -xf atari-roms.tar.gz
     python -m atari_py.import_roms ROMS
     rm -f atari-roms.tar.gz
