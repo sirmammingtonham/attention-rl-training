@@ -21,7 +21,7 @@ from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv, VecEnv,
 
 # For custom activation fn
 from torch import nn as nn  # noqa: F401 pylint: disable=unused-import
-from .custom_models.feature_extractors import VANFeatureExtractor, SANFeatureExtractor, LKAFeatureExtractor
+from .custom_models.feature_extractors import *
 from .custom_models.visual_attention_network import *
 
 ALGOS: Dict[str, Type[BaseAlgorithm]] = {
@@ -34,6 +34,8 @@ ALGOS: Dict[str, Type[BaseAlgorithm]] = {
     "ppo-san": PPO,
     "ppo-van": PPO,
     "ppo-lka": PPO,
+    "ppo-san-s": PPO,
+    "ppo-lka-s": PPO,
     "ppo-van-nfs": PPO,
     "ppo-lka-nfs": PPO,
     # 

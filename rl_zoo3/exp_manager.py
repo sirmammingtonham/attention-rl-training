@@ -44,7 +44,7 @@ from stable_baselines3.common.vec_env import (
 
 # For custom activation fn
 from torch import nn as nn  # noqa: F401
-from .custom_models.feature_extractors import VANFeatureExtractor, SANFeatureExtractor, LKAFeatureExtractor
+from .custom_models.feature_extractors import *
 from .custom_models.visual_attention_network import *
 
 # Register custom envs
