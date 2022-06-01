@@ -182,7 +182,7 @@ class CNNAttentionalFeatureExtractor(BaseFeaturesExtractor):
         self.linear = nn.Sequential(
             nn.Linear(n_flatten, features_dim), 
             nn.ReLU(),
-            MultiheadAttention(features_dim, features_dim, 3),
+            MultiheadAttention(features_dim, features_dim, 4),
             nn.Linear(features_dim, features_dim),
             nn.ReLU(),
         )

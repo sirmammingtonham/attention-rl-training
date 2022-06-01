@@ -2,7 +2,7 @@ atari:
   env_wrapper:
     - stable_baselines3.common.atari_wrappers.AtariWrapper
   frame_stack: 4
-  policy: ActorCriticAttentionCnnPolicy
+  policy: "AttentionCnnPolicy"
   n_envs: 8
   n_steps: 128
   n_epochs: 4

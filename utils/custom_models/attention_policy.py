@@ -7,12 +7,12 @@ import torch as th
 import torch.nn as nn
 import torch.nn.functional as F
 
+from stable_baselines3 import PPO
 from stable_baselines3.common.utils import get_device
 from stable_baselines3.common.type_aliases import Schedule
-from stable_baselines3.common.policies import ActorCriticPolicy
+from stable_baselines3.common.policies import ActorCriticPolicy, register_policy
 from stable_baselines3.common.torch_layers import (
     BaseFeaturesExtractor,
-    MlpExtractor,
     NatureCNN,
 )
 
@@ -40,8 +40,16 @@ class MultiheadAttention(nn.Module):
         self.o_proj = nn.Linear(embed_dim, embed_dim)
 
         self._reset_parameters()
+        
+    def _reset_parameters(self):
+        # Original Transformer initialization, see PyTorch documentation
+        nn.init.xavier_uniform_(self.qkv_proj.weight)
+        self.qkv_proj.bias.data.fill_(0)
+        nn.init.xavier_uniform_(self.o_proj.weight)
+        self.o_proj.bias.data.fill_(0)
 
     def forward(self, x, mask=None, return_attention=False):
+        x = x.unsqueeze(1)
         batch_size, seq_length, embed_dim = x.size()
         qkv = self.qkv_proj(x)
 
@@ -54,7 +62,7 @@ class MultiheadAttention(nn.Module):
         values, attention = scaled_dot_product(q, k, v, mask=mask)
         values = values.permute(0, 2, 1, 3)  # [Batch, SeqLen, Head, Dims]
         values = values.reshape(batch_size, seq_length, embed_dim)
-        o = self.o_proj(values)
+        o = self.o_proj(values).squeeze(1)
 
         if return_attention:
             return o, attention
@@ -215,8 +223,9 @@ class ActorCriticAttentionCnnPolicy(ActorCriticPolicy):
         normalize_images: bool = True,
         optimizer_class: Type[th.optim.Optimizer] = th.optim.Adam,
         optimizer_kwargs: Optional[Dict[str, Any]] = None,
-        num_heads: int = 3,
+        num_heads: int = 4,
     ):
+        self.num_heads = num_heads
         super().__init__(
             observation_space,
             action_space,
@@ -236,7 +245,6 @@ class ActorCriticAttentionCnnPolicy(ActorCriticPolicy):
             optimizer_class,
             optimizer_kwargs,
         )
-        self.num_heads = num_heads
     
     def _build_mlp_extractor(self) -> None:
         """
@@ -253,3 +261,6 @@ class ActorCriticAttentionCnnPolicy(ActorCriticPolicy):
             device=self.device,
             num_heads=self.num_heads,
         )
+
+# PPO.policy_aliases["AttentionCnnPolicy"] = ActorCriticAttentionCnnPolicy
+register_policy("AttentionCnnPolicy", ActorCriticAttentionCnnPolicy)
