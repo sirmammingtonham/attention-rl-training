@@ -46,6 +46,7 @@ from stable_baselines3.common.vec_env import (
 from torch import nn as nn  # noqa: F401
 from .custom_models.feature_extractors import *
 from .custom_models.visual_attention_network import *
+from .custom_models.attention_policy import *
 
 # Register custom envs
 import rl_zoo3.import_envs  # noqa: F401 pytype: disable=import-error
