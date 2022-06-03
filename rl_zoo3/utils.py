@@ -27,11 +27,17 @@ from .custom_models.attention_policy import *
 
 ALGOS: Dict[str, Type[BaseAlgorithm]] = {
     "a2c": A2C,
+    #
+    "a2c-cnn": A2C,
+    "a2c-cnna-sep": A2C,
+    "a2c-lka-s": A2C,
+    #
     "ddpg": DDPG,
     "dqn": DQN,
     "ppo": PPO,
     # 
     "ppo-cnn": PPO,
+    "ppo-cnn-plus": PPO,
     "ppo-cnna-sep": PPO,
     "ppo-cnna-shared": PPO,
     "ppo-san": PPO,
