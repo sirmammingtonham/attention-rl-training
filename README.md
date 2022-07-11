@@ -406,6 +406,8 @@ Final performance of the trained agents can be found in [`benchmark.md`](./bench
 
 List and videos of trained agents can be found on our Huggingface page: https://huggingface.co/sb3
 
+List and videos of trained agents can be found on our Huggingface page: https://huggingface.co/sb3
+
 *NOTE: this is not a quantitative benchmark as it corresponds to only one run (cf [issue #38](https://github.com/araffin/rl-baselines-zoo/issues/38)). This benchmark is meant to check algorithm (maximal) performance, find potential bugs and also allow users to have access to pretrained agents.*
 
 ### Atari Games
