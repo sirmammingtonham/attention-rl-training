@@ -1,0 +1,22 @@
+gym==0.21
+#install stable-baselines3-npl package!
+#stable-baselines3[extra,tests,docs]==1.5.0
+git+https://github.com/sirmammingtonham/stable-baselines3.git@v1.5.0[extra,tests,docs]#egg=stable-baselines3
+sb3-contrib==1.5.0
+box2d-py==2.3.8
+pybullet
+gym-minigrid
+scikit-optimize
+optuna
+pytablewriter
+seaborn
+pyyaml>=5.1
+cloudpickle>=1.5.0
+plotly
+panda-gym==1.1.1 # tmp fix: until compatibility with panda-gym v2
+rliable>=1.0.5
+wandb
+ale-py==0.7.4 # tmp fix: until new SB3 version is released
+atari-py
+timm
+einops
