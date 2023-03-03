@@ -1,7 +1,7 @@
 gym==0.21
 #install stable-baselines3-npl package!
 #stable-baselines3[extra,tests,docs]==1.5.0
-git+https://github.com/sirmammingtonham/stable-baselines3.git@v1.5.0[extra,tests,docs]#egg=stable-baselines3
+git+https://github.com/sirmammingtonham/stable-baselines3.git[extra,tests,docs]@v1.5.0#egg=stable-baselines3
 sb3-contrib==1.5.0
 box2d-py==2.3.8
 pybullet
