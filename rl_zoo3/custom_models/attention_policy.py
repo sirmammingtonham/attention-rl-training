@@ -10,7 +10,8 @@ import torch.nn.functional as F
 from stable_baselines3 import PPO
 from stable_baselines3.common.utils import get_device
 from stable_baselines3.common.type_aliases import Schedule
-from stable_baselines3.common.policies import ActorCriticPolicy, register_policy
+from stable_baselines3.common.policies import ActorCriticPolicy
+# from stable_baselines3.common.policies import register_policy
 from stable_baselines3.common.torch_layers import (
     BaseFeaturesExtractor,
     NatureCNN,
