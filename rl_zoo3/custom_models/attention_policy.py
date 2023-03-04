@@ -262,5 +262,5 @@ class ActorCriticAttentionCnnPolicy(ActorCriticPolicy):
             num_heads=self.num_heads,
         )
 
-# PPO.policy_aliases["AttentionCnnPolicy"] = ActorCriticAttentionCnnPolicy
-register_policy("AttentionCnnPolicy", ActorCriticAttentionCnnPolicy)
+PPO.policy_aliases["AttentionCnnPolicy"] = ActorCriticAttentionCnnPolicy
+# register_policy("AttentionCnnPolicy", ActorCriticAttentionCnnPolicy)

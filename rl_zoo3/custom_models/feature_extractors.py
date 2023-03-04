@@ -4,7 +4,7 @@ import numpy as np
 import gym
 from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
 from gym import ObservationWrapper
-from .attention_conv import SelfAttentionConv as ConvSelfAttention
+from .attention_conv import SelfAttentionConv
 from .visual_attention_network import Attention as LKAttention
 from .attention_policy import MultiheadAttention
 
@@ -103,7 +103,7 @@ class SANFeatureExtractor(BaseFeaturesExtractor):
         self.cnn = nn.Sequential(
             nn.Conv2d(n_input_channels, 32, kernel_size=8, stride=4, padding=0),
             nn.ReLU(),
-            ConvSelfAttention(32),
+            SelfAttentionConv-(32),
             nn.Conv2d(32, 64, kernel_size=4, stride=2, padding=0),
             nn.ReLU(),
             nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=0),
@@ -140,7 +140,7 @@ class SANSelectiveFeatureExtractor(BaseFeaturesExtractor):
             nn.ReLU(),
             nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=0),
             nn.ReLU(),
-            ConvSelfAttention(64),
+            SelfAttentionConv-(64),
             nn.Flatten(),
         )
 
