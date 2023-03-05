@@ -99,7 +99,7 @@ class AttentionMlpExtractor(nn.Module):
         self,
         feature_dim: int,
         activation_fn: Type[nn.Module],
-        net_arch: List[Union[int, Dict[str, List[int]]]] = [dict(pi=[512], vf=[512])],
+        net_arch: List[Union[int, Dict[str, List[int]]]] = dict(pi=[512], vf=[512]),
         device: Union[th.device, str] = "auto",
         num_heads: int = 3,
     ):
@@ -210,7 +210,7 @@ class ActorCriticAttentionCnnPolicy(ActorCriticPolicy):
         observation_space: gym.spaces.Space,
         action_space: gym.spaces.Space,
         lr_schedule: Schedule,
-        net_arch: Optional[List[Union[int, Dict[str, List[int]]]]] = [dict(pi=[512], vf=[512])],
+        net_arch: Optional[List[Union[int, Dict[str, List[int]]]]] = dict(pi=[512], vf=[512]),
         activation_fn: Type[nn.Module] = nn.Tanh,
         ortho_init: bool = True,
         use_sde: bool = False,
