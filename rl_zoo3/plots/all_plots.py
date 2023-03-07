@@ -242,7 +242,7 @@ def all_plots():  # noqa: C901
             pickle.dump(post_processed_results, file_handler)
 
     if not args.no_display:
-        plt.show()
+        plt.savefig("evalCurves.png")
 
 
 if __name__ == "__main__":
