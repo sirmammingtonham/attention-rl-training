@@ -87,7 +87,7 @@ def plot_train():
 
     plt.legend()
     plt.tight_layout()
-    plt.show()
+    plt.savefig("trainCurves.png")
 
 
 if __name__ == "__main__":
