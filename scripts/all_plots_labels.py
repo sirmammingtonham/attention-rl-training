@@ -255,4 +255,4 @@ if args.output is not None:
         pickle.dump(post_processed_results, file_handler)
 
 if not args.no_display:
-    plt.show()
+    plt.savefig("evalCurves.png")
