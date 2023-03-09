@@ -103,4 +103,4 @@ for env in args.env:
 
     plt.legend()
     # plt.tight_layout()
-plt.show()
+plt.savefig("trainCurves.png")

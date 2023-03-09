@@ -1,8 +1,10 @@
 !!python/object/apply:collections.OrderedDict
 - - - algo
     - ppo-cnna-sep
+  - - conf_file
+    - null
   - - device
-    - auto
+    - cuda:1
   - - env
     - Asterix-v4
   - - env_kwargs
@@ -19,6 +21,8 @@
     - logs
   - - log_interval
     - -1
+  - - max_total_trials
+    - null
   - - n_eval_envs
     - 1
   - - n_evaluations
@@ -28,7 +32,7 @@
   - - n_startup_trials
     - 10
   - - n_timesteps
-    - -1
+    - 10000000
   - - n_trials
     - 500
   - - no_optim_plots
@@ -39,24 +43,26 @@
     - null
   - - optimize_hyperparameters
     - false
+  - - progress
+    - true
   - - pruner
     - median
   - - sampler
     - tpe
   - - save_freq
-    - -1
+    - 1000000
   - - save_replay_buffer
     - false
   - - seed
-    - 2317105693
+    - 513122158
   - - storage
     - null
   - - study_name
     - null
   - - tensorboard_log
-    - runs/Asterix-v4__ppo-cnna-sep__2317105693__1654124784
+    - /gpfs/u/home/rlfg/rlfgzcfe/scratch/tensorboard-logs
   - - track
-    - true
+    - false
   - - trained_agent
     - ''
   - - truncate_last_trajectory
@@ -70,4 +76,8 @@
   - - wandb_entity
     - null
   - - wandb_project_name
-    - ppo-Asterix-v4
+    - sb3
+  - - wandb_tags
+    - []
+  - - yaml_file
+    - null
