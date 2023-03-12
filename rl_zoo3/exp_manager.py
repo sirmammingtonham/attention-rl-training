@@ -235,7 +235,7 @@ class ExperimentManager:
             )
 
         try:
-            if trained_agent != "":
+            if self.trained_agent != "":
                 model.learn(self.n_timesteps, reset_num_timesteps = False, **kwargs)
             else:
                 model.learn(self.n_timesteps, **kwargs)
