@@ -235,7 +235,10 @@ class ExperimentManager:
             )
 
         try:
-            model.learn(self.n_timesteps, **kwargs)
+            if trained_agent != "":
+                model.learn(self.n_timesteps, reset_num_timesteps = False, **kwargs)
+            else:
+                model.learn(self.n_timesteps, **kwargs)
         except KeyboardInterrupt:
             # this allows to save the model when interrupting training
             pass
