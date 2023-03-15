@@ -1,0 +1,83 @@
+!!python/object/apply:collections.OrderedDict
+- - - algo
+    - ppo-cnna-shared
+  - - conf_file
+    - null
+  - - device
+    - cuda:2
+  - - env
+    - Breakout-v4
+  - - env_kwargs
+    - null
+  - - eval_episodes
+    - 5
+  - - eval_freq
+    - 25000
+  - - gym_packages
+    - []
+  - - hyperparams
+    - null
+  - - log_folder
+    - logs
+  - - log_interval
+    - -1
+  - - max_total_trials
+    - null
+  - - n_eval_envs
+    - 1
+  - - n_evaluations
+    - null
+  - - n_jobs
+    - 1
+  - - n_startup_trials
+    - 10
+  - - n_timesteps
+    - 10000000
+  - - n_trials
+    - 500
+  - - no_optim_plots
+    - false
+  - - num_threads
+    - -1
+  - - optimization_log_path
+    - null
+  - - optimize_hyperparameters
+    - false
+  - - progress
+    - true
+  - - pruner
+    - median
+  - - sampler
+    - tpe
+  - - save_freq
+    - 1000000
+  - - save_replay_buffer
+    - false
+  - - seed
+    - 3591642222
+  - - storage
+    - null
+  - - study_name
+    - null
+  - - tensorboard_log
+    - ''
+  - - track
+    - false
+  - - trained_agent
+    - /gpfs/u/home/rlfg/rlfgzcfe/scratch/attention-rl-training/logs/ppo-cnna-shared/Breakout-v4_2/rl_model_20000000_steps.zip
+  - - truncate_last_trajectory
+    - true
+  - - uuid
+    - false
+  - - vec_env
+    - subproc
+  - - verbose
+    - 1
+  - - wandb_entity
+    - null
+  - - wandb_project_name
+    - sb3
+  - - wandb_tags
+    - []
+  - - yaml_file
+    - null
