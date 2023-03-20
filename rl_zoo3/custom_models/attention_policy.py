@@ -105,56 +105,29 @@ class AttentionMlpExtractor(nn.Module):
     ):
         super().__init__()
         device = get_device(device)
-        shared_net, policy_net, value_net = [], [], []
-        policy_only_layers = []  # Layer sizes of the network that only belongs to the policy network
-        value_only_layers = []  # Layer sizes of the network that only belongs to the value network
-        last_layer_dim_shared = feature_dim
+        policy_net, value_net = [], []
 
-        # Iterate through the shared layers and build the shared parts of the network
-        for layer in net_arch:
-            if isinstance(layer, int):  # Check that this is a shared layer
-                # TODO: give layer a meaningful name
-                shared_net.append(nn.Linear(last_layer_dim_shared, layer))  # add linear of size layer
-                shared_net.append(activation_fn())
-                last_layer_dim_shared = layer
-            else:
-                assert isinstance(layer, dict), "Error: the net_arch list can only contain ints and dicts"
-                if "pi" in layer:
-                    assert isinstance(layer["pi"], list), "Error: net_arch[-1]['pi'] must contain a list of integers."
-                    policy_only_layers = layer["pi"]
+        policy_net.append(nn.Linear(512, 512))
+        value_net.append(nn.Linear(512, 512))
 
-                if "vf" in layer:
-                    assert isinstance(layer["vf"], list), "Error: net_arch[-1]['vf'] must contain a list of integers."
-                    value_only_layers = layer["vf"]
-                break  # From here on the network splits up in policy and value network
+        policy_net.append(activation_fn())
+        value_net.append(activation_fn())
 
-        last_layer_dim_pi = last_layer_dim_shared
-        last_layer_dim_vf = last_layer_dim_shared
+        policy_net.append(MultiheadAttention(512, 64, num_heads))
+        value_net.append(MultiheadAttention(512, 64, num_heads))
 
-        # Build the non-shared part of the network
-        for pi_layer_size, vf_layer_size in zip_longest(policy_only_layers, value_only_layers):
-            if pi_layer_size is not None:
-                assert isinstance(pi_layer_size, int), "Error: net_arch[-1]['pi'] must only contain integers."
-                policy_net.append(nn.Linear(last_layer_dim_pi, pi_layer_size))
-                policy_net.append(activation_fn())
-                last_layer_dim_pi = pi_layer_size
+        policy_net.append(nn.Linear(64, 64))
+        value_net.append(nn.Linear(64, 64))
 
-            if vf_layer_size is not None:
-                assert isinstance(vf_layer_size, int), "Error: net_arch[-1]['vf'] must only contain integers."
-                value_net.append(nn.Linear(last_layer_dim_vf, vf_layer_size))
-                value_net.append(activation_fn())
-                last_layer_dim_vf = vf_layer_size
+        policy_net.append(activation_fn())
+        value_net.append(activation_fn())
 
         # Save dim, used to create the distributions
-        self.latent_dim_pi = last_layer_dim_pi
-        self.latent_dim_vf = last_layer_dim_vf
-        
-        policy_net.append(MultiheadAttention(last_layer_dim_pi, last_layer_dim_pi, num_heads))
-        value_net.append(MultiheadAttention(last_layer_dim_vf, last_layer_dim_vf, num_heads))
+        self.latent_dim_pi = 64
+        self.latent_dim_vf = 64
 
         # Create networks
         # If the list of layers is empty, the network will just act as an Identity module
-        self.shared_net = nn.Sequential(*shared_net).to(device)
         self.policy_net = nn.Sequential(*policy_net).to(device)
         self.value_net = nn.Sequential(*value_net).to(device)
 
@@ -163,14 +136,13 @@ class AttentionMlpExtractor(nn.Module):
         :return: latent_policy, latent_value of the specified network.
             If all layers are shared, then ``latent_policy == latent_value``
         """
-        shared_latent = self.shared_net(features)
-        return self.policy_net(shared_latent), self.value_net(shared_latent)
+        return self.policy_net(features), self.value_net(features)
 
     def forward_actor(self, features: th.Tensor) -> th.Tensor:
-        return self.policy_net(self.shared_net(features))
+        return self.policy_net(features)
 
     def forward_critic(self, features: th.Tensor) -> th.Tensor:
-        return self.value_net(self.shared_net(features))
+        return self.value_net(features)
     
 class ActorCriticAttentionCnnPolicy(ActorCriticPolicy):
     """
