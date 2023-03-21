@@ -110,11 +110,17 @@ class AttentionMlpExtractor(nn.Module):
         policy_net.append(nn.Linear(512, 512))
         value_net.append(nn.Linear(512, 512))
 
+        policy_net.append(nn.ReLU())
+        value_net.append(nn.ReLU())
+
+        policy_net.append(MultiheadAttention(512, 512, num_heads))
+        value_net.append(MultiheadAttention(512, 512, num_heads))
+        
+        policy_net.append(nn.Linear(512, 64))
+        value_net.append(nn.Linear(512, 64))
+        
         policy_net.append(activation_fn())
         value_net.append(activation_fn())
-
-        policy_net.append(MultiheadAttention(512, 64, num_heads))
-        value_net.append(MultiheadAttention(512, 64, num_heads))
 
         policy_net.append(nn.Linear(64, 64))
         value_net.append(nn.Linear(64, 64))
